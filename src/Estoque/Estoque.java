@@ -56,6 +56,9 @@ public class Estoque extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
         tbtTabela.setModel(new javax.swing.table.DefaultTableModel(
@@ -301,14 +304,18 @@ Existente adcionando = new Existente();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       
+       
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
         Tabela.addRow((Object[]) adcionando.produto());
         Tabela.addRow((Object[]) adcionando.produto1());
         Tabela.addRow((Object[]) adcionando.produto2());
         Tabela.addRow((Object[]) adcionando.produto3());
         Tabela.addRow((Object[]) adcionando.produto4());
-       
-    }//GEN-LAST:event_formWindowActivated
+    }//GEN-LAST:event_formWindowOpened
   
     
     /**

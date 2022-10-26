@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class Imprimir {
     public String teste(String Ariquivo){
-       login1 a = new login1();
+       LoginPri a = new LoginPri();
        String funcionario = a.txtLogin.getText();
        
        File arquivo = new File("C:\\Salvos\\" + Ariquivo +".txt");

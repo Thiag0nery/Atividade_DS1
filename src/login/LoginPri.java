@@ -5,16 +5,19 @@
  */
 package login;
 
+import java.util.HashSet;
+import javax.swing.JTextField;
+
 /**
  *
  * @author SENAI
  */
-public class login1 extends javax.swing.JFrame {
+public class LoginPri extends javax.swing.JFrame {
 
     /**
      * Creates new form login1
      */
-    public login1() {
+    public LoginPri() {
         initComponents();
     }
 
@@ -196,10 +199,10 @@ public class login1 extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(470, 288));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-LoginClass usuario = new LoginClass();
+
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         String loginAcessso = txtLogin.getText();
         btn.setText(loginAcessso);
@@ -211,30 +214,34 @@ LoginClass usuario = new LoginClass();
     }//GEN-LAST:event_txtPassActionPerformed
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
+        LoginClass usuario = new LoginClass();
+        Menu menu = new Menu();
+        
         String Usuario = txtLogin.getText().toUpperCase();
         int Pass =  Integer.parseInt(txtPass.getText());
-        usuario.setUsuario(Usuario);
-        usuario.setPass(Pass);
+        usuario.setUsuario(txtLogin.getText());
+        menu.Receber(usuario);
         if(Usuario.equals("THIAGO") && Pass == 2020){
-            new Menu().setVisible(true);
+            menu.setVisible(true);
             dispose();
            
         }
         else  if(Usuario.equals("GABRIEL") && Pass == 4789){
-            new Menu().setVisible(true);
+            menu.setVisible(true);
             dispose();
            
         }
          else  if(Usuario.equals("ANGELO") && Pass == 1498){
-            new Menu().setVisible(true);
+            menu.setVisible(true);
             dispose();
            
         }
          else  if(Usuario.equals("BRUNO") && Pass == 5987){
-            new Menu().setVisible(true);
+            menu.setVisible(true);
             dispose();
            
         }
+        
        //new Front().setVisible(true);
        //dispose();
        
@@ -261,20 +268,21 @@ LoginClass usuario = new LoginClass();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPri.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login1().setVisible(true);
+                new LoginPri().setVisible(true);
             }
         });
     }

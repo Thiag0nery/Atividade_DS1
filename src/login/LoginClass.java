@@ -10,10 +10,9 @@ package login;
  */
 public class LoginClass {
     private String Usuario;
-    private int Pass;
 
     
-    
+  
     public String getUsuario() {
         return Usuario;
     }
@@ -22,13 +21,6 @@ public class LoginClass {
         this.Usuario = Usuario;
     }
 
-    public int getPass() {
-        return Pass;
-    }
-
-    public void setPass(int Pass) {
-        this.Pass = Pass;
-    }
     
     
 }
