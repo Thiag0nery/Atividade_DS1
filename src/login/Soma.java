@@ -28,6 +28,12 @@ public class Soma {
     public double Unitario(double numero, int Unitario){
         return this.Number = numero * Unitario;
     }
+    public void ValorUnitario(double valor, int quantidade){
+       this.Unitario = valor * quantidade;
+    }
+    public String ValorUnitario(){
+        return String.valueOf(Unitario);
+    }
     
     @Override
     public String toString() {
