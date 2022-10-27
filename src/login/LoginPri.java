@@ -221,6 +221,7 @@ public class LoginPri extends javax.swing.JFrame {
         int Pass =  Integer.parseInt(txtPass.getText());
         usuario.setUsuario(txtLogin.getText());
         menu.Receber(usuario);
+        
         if(Usuario.equals("THIAGO") && Pass == 2020){
             menu.setVisible(true);
             dispose();

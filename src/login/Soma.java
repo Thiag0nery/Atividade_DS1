@@ -10,7 +10,33 @@ package login;
  */
 public class Soma {
     private double Number;
-    private double resultado;
+    private double Soma;
+    private double Unitario;
+    
+    public double getNumber() {
+        return Number;
+    }
+
+    public void Soma(double numero){
+        this.Number += numero;
+       
+    }
+    public String Soma(){
+        return String.valueOf( Number );
+    }
+    
+    public double Unitario(double numero, int Unitario){
+        return this.Number = numero * Unitario;
+    }
+    
+    @Override
+    public String toString() {
+        return  String.valueOf(Number);
+    }
+     
+    /*public double getNumber() {
+        return Number;
+    }
     
     public double Somando(double numero){
         return this.Number += numero;
@@ -29,7 +55,9 @@ public class Soma {
     public String toString() {
         return  String.format("%.2f",this.Number);
     }
+    */
+
     
-    
+
     
 }

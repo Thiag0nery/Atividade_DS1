@@ -291,6 +291,9 @@ Existente adcionando = new Existente();
                 Tabela.addRow(inserindo);
                  final DefaultTableModel Tabela2 = ( DefaultTableModel) menu.tblTabelaItens.getModel();
                  Tabela2.addRow(inserindo);
+                  
+                final DefaultTableModel Tabela3 =  (DefaultTableModel) menu.tbtTabelaProdutos.getModel();
+                Tabela3.addRow(inserindo);
 
     }//GEN-LAST:event_btnIncluirActionPerformed
 
