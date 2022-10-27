@@ -348,22 +348,25 @@ public class Pagamento extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_txtValorRecebidoKeyPressed
     public void  Teste(){
-       if( radAvista.isSelected()){
+        if( radAvista.isSelected()){
             double valor = Double.parseDouble(lblValor.getText());
-            double novoValor = valor - 15;
+            double desconto = ((valor/100)*10);
+            double novoValor = valor-desconto;
             lblNovoValor.setText(String.valueOf(novoValor));
            
        }
        
        if( radCartao.isSelected()){
             double valor = Double.parseDouble(lblValor.getText());
-            double novoValor = valor - 35;
+             double desconto = ((valor/100)*5);
+            double novoValor = valor+desconto;
             lblNovoValor.setText(String.valueOf(novoValor));
        }
        
        if( radPix.isSelected()){
            double valor = Double.parseDouble(lblValor.getText());
-            double novoValor = valor - 25;
+             double desconto = ((valor/100)*10);
+            double novoValor = valor-desconto;
             lblNovoValor.setText(String.valueOf(novoValor));
        }
     }
