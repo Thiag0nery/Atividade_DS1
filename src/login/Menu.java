@@ -78,6 +78,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         tblTabelaItens.setModel(new javax.swing.table.DefaultTableModel(
@@ -136,7 +137,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,6 +398,7 @@ public class Menu extends javax.swing.JFrame {
                                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
                                 .addComponent(txtCodico))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -426,6 +428,11 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("Navegação");
         jMenu1.setPreferredSize(new java.awt.Dimension(67, 28));
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
 
         jMenuItem1.setText("Estoque");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -439,6 +446,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Exibir estoque");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -478,6 +493,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 Soma soma = new Soma();
 Pagamento telaPagamento = new Pagamento();
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Existente adcionando = new Existente();
         DefaultTableModel Tabela = ( DefaultTableModel) tblTabelaItens.getModel();
@@ -487,16 +503,12 @@ Pagamento telaPagamento = new Pagamento();
         Tabela.addRow((Object[]) adcionando.produto3());
         Tabela.addRow((Object[]) adcionando.produto4());
         
-        final DefaultTableModel Tabela2 = ( DefaultTableModel) tbtTabelaProdutos.getModel();
-        Tabela2.addRow((Object[]) adcionando.produto());
-        Tabela2.addRow((Object[]) adcionando.produto1());
-        Tabela2.addRow((Object[]) adcionando.produto2());
-        Tabela2.addRow((Object[]) adcionando.produto3());
-        Tabela2.addRow((Object[]) adcionando.produto4());
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        System.exit(0);
+        new LoginPri().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -536,11 +548,20 @@ Pagamento telaPagamento = new Pagamento();
                 soma.Somando((double) a);
                 txtValorProduto.setText(String.valueOf(soma));
                 */
+                Object[] inserir = new Object[]{
+                   tblTabelaItens.getValueAt(0, 0),
+                    tblTabelaItens.getValueAt(0, 1),
+                   tblTabelaItens.getValueAt(0, 2),
+                    tblTabelaItens.getValueAt(0, 3)
+                };
+                DefaultTableModel Tabela2 = ( DefaultTableModel) tbtTabelaProdutos.getModel();
+                Tabela2.addRow(inserir);
                  txtQuantidade.setText("1");
                 soma.Soma((double) tblTabelaItens.getValueAt(0, 2));
                 soma.ValorUnitario((double)tblTabelaItens.getValueAt(0, 2),  Integer.parseInt(txtQuantidade.getText()));
                 txtValorProduto.setText(soma.ValorUnitario());
                 txtSubtotal.setText(soma.Soma());
+                txtCodico.setText("");
                
                 
                 txtNomeProduto.setText(tblTabelaItens.getValueAt(0, 1).toString());
@@ -560,6 +581,14 @@ Pagamento telaPagamento = new Pagamento();
             txtValorProduto.setText(String.valueOf(soma));
         }
     }//GEN-LAST:event_txtQuantidadeKeyPressed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
    
     /**
@@ -614,6 +643,7 @@ Pagamento telaPagamento = new Pagamento();
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
