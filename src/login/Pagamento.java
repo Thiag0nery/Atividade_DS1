@@ -288,7 +288,6 @@ public class Pagamento extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -348,13 +347,13 @@ public class Pagamento extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButton1ActionPerformed
     public void  Teste(){
-        if( radAvista.isSelected()){
+       if(radAvista.isSelected()){
             double valor = Double.parseDouble(lblValor.getText());
             double desconto = ((valor/100)*10);
             double novoValor = valor-desconto;
             lblNovoValor.setText(String.valueOf(novoValor));
-           
        }
+       
        
         if( radCartao.isSelected()){
             double valor = Double.parseDouble(lblValor.getText());

@@ -6,6 +6,17 @@ package Estoque;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import login.Menu;
 import login.*;
@@ -276,22 +287,25 @@ Existente adcionando = new Existente();
     }//GEN-LAST:event_tbtTabelaMouseClicked
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-            Metado.setCodico(Integer.parseInt(txtQuantidade.getText()));
-            Metado.setNomeProduto(txtProduto.getText());
-            Metado.setPreco(Double.parseDouble(txtPreco.getText()));
-            Metado.setCodico(Integer.parseInt(txtCodico.getText()));   
-            Object[] inserindo = new Object[]{
-                Metado.getCodico(),
-                Metado.getNomeProduto(),
-                Metado.getPreco(),
-                Metado.getCodico()
-
-                };
-                 DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
-                Tabela.addRow(inserindo);
-                 final DefaultTableModel Tabela2 = ( DefaultTableModel) menu.tblTabelaItens.getModel();
-                 Tabela2.addRow(inserindo);
-                 
+           boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
+     
+     String[] linhas = new String[]{
+         txtQuantidade.getText(),
+         txtProduto.getText(),
+         txtPreco.getText(),
+         txtCodico.getText()
+     };
+     
+     File arquivo  = new File("C:\\MercadoEstoque\\" + txtProduto.getText()+ ".txt");
+     try(BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))){
+         for(String linha: linhas){
+             bw.write(linha);
+             bw.newLine();
+         }
+     }  catch (IOException ex) {
+           JOptionPane.showMessageDialog(null, "Deu errad000o");
+        }
+     
 
     }//GEN-LAST:event_btnIncluirActionPerformed
 
@@ -310,12 +324,69 @@ Existente adcionando = new Existente();
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
-        Tabela.addRow((Object[]) adcionando.produto());
-        Tabela.addRow((Object[]) adcionando.produto1());
-        Tabela.addRow((Object[]) adcionando.produto2());
-        Tabela.addRow((Object[]) adcionando.produto3());
-        Tabela.addRow((Object[]) adcionando.produto4());
+       DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
+          
+          
+          
+        try {
+            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
+                if (Files.isRegularFile(filePath)) {
+                    int i = 0;
+                    int coluna = 0;
+                    
+                    
+                    Object inserindo2 = new Object();
+                    Object inserindo3 = new Object();
+                    Object inserindo4 = new Object();
+                    Object inserindo5 = new Object();
+                    
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(filePath);
+                        while(sc.hasNextLine()){
+                            
+                            if(i == 0){
+                                    inserindo2 = sc.nextLine();
+                             }
+                              
+                            if(i == 1){
+                                    inserindo3 = sc.nextLine();
+                             }
+                            if(i == 2){
+                                    inserindo4 = sc.nextLine();
+                             }
+                            if(i == 3){
+                                    inserindo5 = sc.nextLine();
+                             }
+                                i = 1 + i;
+                            }
+                            i = 0;
+                            coluna  = 1 + i;
+                            Object[] inserindo = new Object[]{
+                                inserindo2, 
+                                  inserindo3, 
+                                 inserindo4,
+                                 inserindo5   
+                            };
+                             Tabela.addRow( inserindo);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    finally{
+                        if( sc != null){
+                            sc.close();
+                        }
+                    }       
+                }
+            });     
+        } catch (IOException ex) {
+            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+
+       
     }//GEN-LAST:event_formWindowOpened
   
     

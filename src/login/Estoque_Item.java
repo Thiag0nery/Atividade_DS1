@@ -4,7 +4,19 @@
  */
 package login;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +53,7 @@ public class Estoque_Item extends javax.swing.JFrame {
         txtPreco = new javax.swing.JTextField();
         txtCodico = new javax.swing.JTextField();
         btnMenu = new javax.swing.JButton();
+        btnIncluir1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -61,7 +74,7 @@ public class Estoque_Item extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -117,12 +130,22 @@ public class Estoque_Item extends javax.swing.JFrame {
             }
         });
 
+        btnIncluir1.setText("Excluir");
+        btnIncluir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIncluir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluir1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(240, 240, 240)
+                .addGap(32, 32, 32)
+                .addComponent(btnIncluir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(btnIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(98, 98, 98)
                 .addComponent(btnMenu)
@@ -167,7 +190,8 @@ public class Estoque_Item extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMenu))
+                    .addComponent(btnMenu)
+                    .addComponent(btnIncluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -177,48 +201,170 @@ public class Estoque_Item extends javax.swing.JFrame {
    Estoque Metado = new Estoque();
    Menu a = new Menu();
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        Metado.setCodico(Integer.parseInt(txtUnidades.getText()));
-        Metado.setNomeProduto(txtProdutoNome.getText());
-        Metado.setPreco(Double.parseDouble(txtPreco.getText()));
-        Metado.setCodico(Integer.parseInt(txtCodico.getText()));
-        
-        Object[] inserindo = new Object[]{
-           Metado.getCodico(),
-           Metado.getNomeProduto(),
-           Metado.getPreco(),
-           Metado.getCodico()
-        };
-        
-       
-        DefaultTableModel Tabela = ( DefaultTableModel) tblTabela.getModel();
-        Tabela.addRow(inserindo);
-        
-      
-        
-       
-         final DefaultTableModel Tabela2 = ( DefaultTableModel) a.tblTabelaItens.getModel();
-         Tabela2.addRow(inserindo);
-       
-       
+     boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
+     
+     String[] linhas = new String[]{
+         txtUnidades.getText(),
+         txtProdutoNome.getText(),
+         txtPreco.getText(),
+         txtCodico.getText()
+     };
+     
+     File arquivo  = new File("C:\\MercadoEstoque\\" + txtProdutoNome.getText()+ ".txt");
+     try(BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))){
+         for(String linha: linhas){
+             bw.write(linha);
+             bw.newLine();
+         }
+     }  catch (IOException ex) {
+           JOptionPane.showMessageDialog(null, "Deu errad000o");
+        }
     }//GEN-LAST:event_btnIncluirActionPerformed
    
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+         /*DefaultTableModel Tabela = ( DefaultTableModel) tblTabela.getModel();
+          
+          
+          
+        try {
+            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
+                if (Files.isRegularFile(filePath)) {
+                    int i = 0;
+                    int coluna = 0;
+                    
+                    
+                    Object inserindo2 = new Object();
+                    Object inserindo3 = new Object();
+                    Object inserindo4 = new Object();
+                    Object inserindo5 = new Object();
+                    
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(filePath);
+                        while(sc.hasNextLine()){
+                            
+                            if(i == 0){
+                                    inserindo2 = sc.nextLine();
+                             }
+                              
+                            if(i == 1){
+                                    inserindo3 = sc.nextLine();
+                             }
+                            if(i == 2){
+                                    inserindo4 = sc.nextLine();
+                             }
+                            if(i == 3){
+                                    inserindo5 = sc.nextLine();
+                             }
+                                i = 1 + i;
+                            }
+                            i = 0;
+                            coluna  = 1 + i;
+                            Object[] inserindo = new Object[]{
+                                inserindo2, 
+                                  inserindo3, 
+                                 inserindo4,
+                                 inserindo5   
+                            };
+                             Tabela.addRow( inserindo);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    finally{
+                        if( sc != null){
+                            sc.close();
+                        }
+                    }       
+                }
+            });     
+        } catch (IOException ex) {
+            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+       */
         
-        
-        a.setVisible(true);
-        dispose();
-        
+        /*File arquivo = new File("C:\\MercadoEstoque\\4.txt");
+        Scanner sc = null;
+        try{
+           
+        }
+        catch( IOException e){
+            JOptionPane.showMessageDialog(null, "errado");
+        }
+        finally{
+            if( sc != null){
+                sc.close();
+            
+        }
+        */
        
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Existente adcionando = new Existente();
-        DefaultTableModel Tabela = ( DefaultTableModel) tblTabela.getModel();
-        Tabela.addRow((Object[]) adcionando.produto());
-        Tabela.addRow((Object[]) adcionando.produto1());
-        Tabela.addRow((Object[]) adcionando.produto2());
-        Tabela.addRow((Object[]) adcionando.produto3());
-        Tabela.addRow((Object[]) adcionando.produto4());
+    DefaultTableModel Tabela = ( DefaultTableModel) tblTabela.getModel();
+          
+          
+          
+        try {
+            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
+                if (Files.isRegularFile(filePath)) {
+                    int i = 0;
+                    int coluna = 0;
+                    
+                    
+                    Object inserindo2 = new Object();
+                    Object inserindo3 = new Object();
+                    Object inserindo4 = new Object();
+                    Object inserindo5 = new Object();
+                    
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(filePath);
+                        while(sc.hasNextLine()){
+                            
+                            if(i == 0){
+                                    inserindo2 = sc.nextLine();
+                             }
+                              
+                            if(i == 1){
+                                    inserindo3 = sc.nextLine();
+                             }
+                            if(i == 2){
+                                    inserindo4 = sc.nextLine();
+                             }
+                            if(i == 3){
+                                    inserindo5 = sc.nextLine();
+                             }
+                                i = 1 + i;
+                            }
+                            i = 0;
+                            coluna  = 1 + i;
+                            Object[] inserindo = new Object[]{
+                                inserindo2, 
+                                  inserindo3, 
+                                 inserindo4,
+                                 inserindo5   
+                            };
+                             Tabela.addRow( inserindo);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    finally{
+                        if( sc != null){
+                            sc.close();
+                        }
+                    }       
+                }
+            });     
+        } catch (IOException ex) {
+            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+       
     }//GEN-LAST:event_formWindowOpened
  
     private void txtUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadesActionPerformed
@@ -241,6 +387,11 @@ public class Estoque_Item extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnIncluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluir1ActionPerformed
+      DefaultTableModel Tabela = ( DefaultTableModel) tblTabela.getModel();
+      
+    }//GEN-LAST:event_btnIncluir1ActionPerformed
    
     
     /**
@@ -280,6 +431,7 @@ public class Estoque_Item extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIncluir;
+    private javax.swing.JButton btnIncluir1;
     private javax.swing.JButton btnMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -16,6 +16,14 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import Estoque.Estoque;
 import java.awt.Button;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 
@@ -137,7 +145,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +320,7 @@ public class Menu extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -495,13 +503,69 @@ Soma soma = new Soma();
 Pagamento telaPagamento = new Pagamento();
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Existente adcionando = new Existente();
         DefaultTableModel Tabela = ( DefaultTableModel) tblTabelaItens.getModel();
-        Tabela.addRow((Object[]) adcionando.produto());
-        Tabela.addRow((Object[]) adcionando.produto1());
-        Tabela.addRow((Object[]) adcionando.produto2());
-        Tabela.addRow((Object[]) adcionando.produto3());
-        Tabela.addRow((Object[]) adcionando.produto4());
+          
+          
+          
+        try {
+            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
+                if (Files.isRegularFile(filePath)) {
+                    int i = 0;
+                    int coluna = 0;
+                    
+                    
+                    int inserindo2 = 0;
+                    String inserindo3 = "";
+                    Double inserindo4 = 0.0;
+                    int inserindo5 = 0;
+                    
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(filePath);
+                        while(sc.hasNextLine()){
+                            
+                            if(i == 0){
+                                    inserindo2 = Integer.parseInt(sc.nextLine());
+                             }
+                              
+                            if(i == 1){
+                                    inserindo3 = sc.nextLine();
+                             }
+                            if(i == 2){
+                                    inserindo4 = Double.parseDouble(sc.nextLine());
+                             }
+                            if(i == 3){
+                                    inserindo5 = Integer.parseInt(sc.nextLine());
+                             }
+                                i = 1 + i;
+                            }
+                            i = 0;
+                            coluna  = 1 + i;
+                            Object[] inserindo = new Object[]{
+                                inserindo2, 
+                                inserindo3, 
+                                inserindo4,
+                                inserindo5   
+                            };
+                             Tabela.addRow( inserindo);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    finally{
+                        if( sc != null){
+                            sc.close();
+                        }
+                    }       
+                }
+            });     
+        } catch (IOException ex) {
+            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+
+     
         
         
     }//GEN-LAST:event_formWindowOpened
@@ -544,10 +608,6 @@ Pagamento telaPagamento = new Pagamento();
                 sorter.setRowFilter(RowFilter.regexFilter(teste));
                 telaPagamento.Pagamento(soma);
 
-                /* double Valor = (double) tblTabelaItens.getValueAt(0, 2);
-                soma.Somando((double) a);
-                txtValorProduto.setText(String.valueOf(soma));
-                */
                 Object[] inserir = new Object[]{
                    tblTabelaItens.getValueAt(0, 0),
                     tblTabelaItens.getValueAt(0, 1),
