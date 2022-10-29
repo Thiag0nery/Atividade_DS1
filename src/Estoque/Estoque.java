@@ -18,8 +18,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import login.Estoque_Item;
+import login.LoginClass;
 import login.Menu;
-import login.*;
+
 
 /**
  *
@@ -33,6 +35,9 @@ public class Estoque extends javax.swing.JFrame {
     public Estoque() {
         initComponents();
     }
+    public void Salvamento(LoginClass usuario){
+        txtRecebido.setText(usuario.getUsuario());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +48,7 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtRecebido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbtTabela = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -61,11 +67,16 @@ public class Estoque extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
+        txtRecebido.setText("jLabel1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -262,9 +273,8 @@ public class Estoque extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-Menu menu = new Menu();
-EstoqueClass Metado = new EstoqueClass();
-Existente adcionando = new Existente();
+
+
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -396,8 +406,13 @@ Existente adcionando = new Existente();
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        menu.setVisible(true);
+        LoginClass login = new LoginClass();
+        Menu Tabela = new  Menu();
+        login.setUsuario(txtRecebido.getText());
+        Tabela.Receber(login);
+        Tabela.setVisible(true);
         dispose();
+       
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -474,6 +489,15 @@ Existente adcionando = new Existente();
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
        new Estoque().setVisible(true);
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       LoginClass login = new LoginClass();
+        Menu Tabela = new  Menu();
+        login.setUsuario(txtRecebido.getText());
+        Tabela.Receber(login);
+        Tabela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
   
     
     /**
@@ -487,7 +511,7 @@ Existente adcionando = new Existente();
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -530,5 +554,6 @@ Existente adcionando = new Existente();
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQuantidade;
+    private javax.swing.JLabel txtRecebido;
     // End of variables declaration//GEN-END:variables
 }

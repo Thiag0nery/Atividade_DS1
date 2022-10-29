@@ -30,6 +30,9 @@ public class Pagamento extends javax.swing.JFrame {
     public Double getPag() {
         return pag;
     }
+    public void Salvamento(LoginClass usuario){
+        txtRecebido.setText(usuario.getUsuario());
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,6 +44,7 @@ public class Pagamento extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        txtRecebido = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,6 +65,8 @@ public class Pagamento extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+
+        txtRecebido.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -332,7 +338,14 @@ public class Pagamento extends javax.swing.JFrame {
                 double Troco = (Subtotal - recebido) * -1.0;
              
                 txtTroco.setText(String.valueOf(Troco));
-                
+                jButton1.setVisible(false);
+                if(Troco <= 0){
+                     JOptionPane.showMessageDialog(null, "Valor recebido menor que o total! Atenção!");
+                      
+                }
+                else{
+                   jButton1.setVisible(true);
+                }
              }
              catch(NumberFormatException e){
                  JOptionPane.showMessageDialog(null, "Por favor, coloque ponto ("+ " . " + ") inves de virgula ( "+ " , " + ")");
@@ -342,8 +355,15 @@ public class Pagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorRecebidoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
        JOptionPane.showMessageDialog(null, "Comprar feita com sucedo");
-       new Menu().setVisible(true);
+        LoginClass login = new LoginClass();
+        Menu Tabela = new  Menu();
+        login.setUsuario(txtRecebido.getText());
+        Tabela.Receber(login);
+        Tabela.setVisible(true);
+        dispose();
+      
        
     }//GEN-LAST:event_jButton1ActionPerformed
     public void  Teste(){
@@ -368,6 +388,10 @@ public class Pagamento extends javax.swing.JFrame {
             double novoValor = valor-desconto;
             lblNovoValor.setText(String.valueOf(novoValor));
        }
+    }
+    
+    public void valorAbaixo(){
+        
     }
     /**
      * @param args the command line arguments
@@ -425,6 +449,7 @@ public class Pagamento extends javax.swing.JFrame {
     private javax.swing.JRadioButton radAvista;
     private javax.swing.JRadioButton radCartao;
     private javax.swing.JRadioButton radPix;
+    private javax.swing.JLabel txtRecebido;
     private javax.swing.JTextField txtTroco;
     private javax.swing.JTextField txtValorRecebido;
     // End of variables declaration//GEN-END:variables

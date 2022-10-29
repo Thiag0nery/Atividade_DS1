@@ -505,15 +505,10 @@ Pagamento telaPagamento = new Pagamento();
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         DefaultTableModel Tabela = ( DefaultTableModel) tblTabelaItens.getModel();
           
-          
-          
         try {
             Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
                     int i = 0;
-                    int coluna = 0;
-                    
-                    
                     int inserindo2 = 0;
                     String inserindo3 = "";
                     Double inserindo4 = 0.0;
@@ -540,7 +535,7 @@ Pagamento telaPagamento = new Pagamento();
                                 i = 1 + i;
                             }
                             i = 0;
-                            coluna  = 1 + i;
+                         
                             Object[] inserindo = new Object[]{
                                 inserindo2, 
                                 inserindo3, 
@@ -563,11 +558,7 @@ Pagamento telaPagamento = new Pagamento();
         } catch (IOException ex) {
             Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-
-     
-        
-        
+      
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
@@ -576,23 +567,32 @@ Pagamento telaPagamento = new Pagamento();
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        System.exit(0);
+        new LoginPri().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-         new Estoque().setVisible(true);
+        
+        new Estoque().setVisible(true);
         dispose();
        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
-        new Estoque().setVisible(true);
+        LoginClass login = new LoginClass();
+        Estoque Tabela = new  Estoque();
+        login.setUsuario(lblFuncionario.getText());
+        Tabela.Salvamento(login);
+        Tabela.setVisible(true);
         dispose();
        
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         telaPagamento.Pagamento(soma);
+        LoginClass login = new LoginClass();
+        login.setUsuario(lblFuncionario.getText());
+        telaPagamento.Salvamento(login);
         telaPagamento.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -647,7 +647,11 @@ Pagamento telaPagamento = new Pagamento();
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
+        LoginClass login = new LoginClass();
+        ExibirEstoque Tabela = new  ExibirEstoque();
+        login.setUsuario(lblFuncionario.getText());
+        Tabela.Salvanmento(login);
+        Tabela.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
    
@@ -662,7 +666,7 @@ Pagamento telaPagamento = new Pagamento();
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
