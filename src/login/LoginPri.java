@@ -211,11 +211,7 @@ public class LoginPri extends javax.swing.JFrame {
             menu.setVisible(true);
             dispose();
            
-        }
-        
-       //new Front().setVisible(true);
-       //dispose();
-       
+        }  
     }//GEN-LAST:event_btnActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked

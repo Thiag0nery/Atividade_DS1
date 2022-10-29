@@ -281,11 +281,9 @@ public class Estoque extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
       try {
-  
-            // Get the file
+          
             File arquivo = new File("C:\\MercadoEstoque\\" + txtProduto.getText() + ".txt");
   
-            // delete file
             if (arquivo.delete())
                  JOptionPane.showMessageDialog(null, "Arquivo deletado com sucesso");
             else
@@ -294,83 +292,16 @@ public class Estoque extends javax.swing.JFrame {
         catch (Exception e) {
             System.err.println(e);
         }
-      boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
-     
-     String[] linhas = new String[]{
-         txtQuantidade.getText(),
-         txtProduto.getText(),
-         txtPreco.getText(),
-         txtCodico.getText()
-     };
-     
-     DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
-          
-          
-          
-        try {
-            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
-                if (Files.isRegularFile(filePath)) {
-                    int i = 0;
-                    int coluna = 0;
-                    
-                    
-                    Object inserindo2 = new Object();
-                    Object inserindo3 = new Object();
-                    Object inserindo4 = new Object();
-                    Object inserindo5 = new Object();
-                    
-                    Scanner sc = null;
-                    try {
-                        sc = new Scanner(filePath);
-                        while(sc.hasNextLine()){
-                            
-                            if(i == 0){
-                                    inserindo2 = sc.nextLine();
-                             }
-                              
-                            if(i == 1){
-                                    inserindo3 = sc.nextLine();
-                             }
-                            if(i == 2){
-                                    inserindo4 = sc.nextLine();
-                             }
-                            if(i == 3){
-                                    inserindo5 = sc.nextLine();
-                             }
-                                i = 1 + i;
-                            }
-                            i = 0;
-                            coluna  = 1 + i;
-                            Object[] inserindo = new Object[]{
-                                inserindo2, 
-                                  inserindo3, 
-                                 inserindo4,
-                                 inserindo5   
-                            };
-                             Tabela.addRow( inserindo);
-                    } catch (FileNotFoundException ex) {
-                        JOptionPane.showMessageDialog(null, "Algo deu errado");
-                    } catch (IOException ex) {
-                         JOptionPane.showMessageDialog(null, "Algo deu errado");
-                    }
-                    finally{
-                        if( sc != null){
-                            sc.close();
-                        }
-                    }       
-                }
-            });     
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Algo deu errado");
-        }
+     boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
+    
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void tbtTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtTabelaMouseClicked
-        int linha = tbtTabela.getSelectedRow(); // retorna a linha selecionada pelo usuario
-        txtQuantidade.setText( tbtTabela.getValueAt(linha,0).toString()); // retorna o valor da celula linha X 0
-        txtProduto.setText( tbtTabela.getValueAt(linha,1).toString()); // retorna o valor da celula linha X 1
-        txtPreco.setText( tbtTabela.getValueAt(linha,2).toString()); // retorna o valor da celula linha X 2
-        txtCodico.setText( tbtTabela.getValueAt(linha,3).toString()); // retorna o valor da celula linha X 2
+        int linha = tbtTabela.getSelectedRow(); 
+        txtQuantidade.setText( tbtTabela.getValueAt(linha,0).toString()); 
+        txtProduto.setText( tbtTabela.getValueAt(linha,1).toString()); 
+        txtPreco.setText( tbtTabela.getValueAt(linha,2).toString()); 
+        txtCodico.setText( tbtTabela.getValueAt(linha,3).toString()); 
 
     }//GEN-LAST:event_tbtTabelaMouseClicked
 
@@ -416,27 +347,21 @@ public class Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-       
-       
+      
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
-          
-          
-          
+       boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();   
         try {
             Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
-                    int i = 0;
-                    int coluna = 0;
-                    
-                    
+                    int i = 0;                       
                     Object inserindo2 = new Object();
                     Object inserindo3 = new Object();
                     Object inserindo4 = new Object();
                     Object inserindo5 = new Object();
-                    
+                
                     Scanner sc = null;
                     try {
                         sc = new Scanner(filePath);
@@ -445,7 +370,6 @@ public class Estoque extends javax.swing.JFrame {
                             if(i == 0){
                                     inserindo2 = sc.nextLine();
                              }
-                              
                             if(i == 1){
                                     inserindo3 = sc.nextLine();
                              }
@@ -458,7 +382,7 @@ public class Estoque extends javax.swing.JFrame {
                                 i = 1 + i;
                             }
                             i = 0;
-                            coluna  = 1 + i;
+            
                             Object[] inserindo = new Object[]{
                                 inserindo2, 
                                   inserindo3, 
@@ -467,9 +391,9 @@ public class Estoque extends javax.swing.JFrame {
                             };
                              Tabela.addRow( inserindo);
                     } catch (FileNotFoundException ex) {
-                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Algo deu errado");
                     } catch (IOException ex) {
-                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Algo deu errado");
                     }
                     finally{
                         if( sc != null){
@@ -479,11 +403,8 @@ public class Estoque extends javax.swing.JFrame {
                 }
             });     
         } catch (IOException ex) {
-            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         
-
-       
+            JOptionPane.showMessageDialog(null, "Algo deu errado");
+        }    
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed

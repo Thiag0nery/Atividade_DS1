@@ -193,6 +193,7 @@ public class Pagamento extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Finilazar");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -338,13 +339,13 @@ public class Pagamento extends javax.swing.JFrame {
                 double Troco = (Subtotal - recebido) * -1.0;
              
                 txtTroco.setText(String.format("%.2f",Troco));
-                jButton1.setVisible(false);
+                jButton1.setEnabled(false);
                 if(Troco <= 0){
                      JOptionPane.showMessageDialog(null, "Valor recebido menor que o total! Atenção!");
                       
                 }
                 else{
-                   jButton1.setVisible(true);
+                   jButton1.setEnabled(true);
                 }
              }
              catch(NumberFormatException e){
@@ -390,9 +391,6 @@ public class Pagamento extends javax.swing.JFrame {
        }
     }
     
-    public void valorAbaixo(){
-        
-    }
     /**
      * @param args the command line arguments
      */

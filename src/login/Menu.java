@@ -16,6 +16,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import Estoque.Estoque;
 import java.awt.Button;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -494,8 +495,8 @@ Soma soma = new Soma();
 Pagamento telaPagamento = new Pagamento();
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
         DefaultTableModel Tabela = ( DefaultTableModel) tblTabelaItens.getModel();
-          
         try {
             Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
@@ -503,8 +504,7 @@ Pagamento telaPagamento = new Pagamento();
                     int inserindo2 = 0;
                     String inserindo3 = "";
                     Double inserindo4 = 0.0;
-                    int inserindo5 = 0;
-                    
+                    int inserindo5 = 0;  
                     Scanner sc = null;
                     try {
                         sc = new Scanner(filePath);
@@ -513,20 +513,18 @@ Pagamento telaPagamento = new Pagamento();
                             if(i == 0){
                                     inserindo2 = Integer.parseInt(sc.nextLine());
                              }
-                              
                             if(i == 1){
                                     inserindo3 = sc.nextLine();
                              }
                             if(i == 2){
                                     inserindo4 = Double.parseDouble(sc.nextLine());
-                             }
+                                }
                             if(i == 3){
                                     inserindo5 = Integer.parseInt(sc.nextLine());
                              }
                                 i = 1 + i;
                             }
                             i = 0;
-                         
                             Object[] inserindo = new Object[]{
                                 inserindo2, 
                                 inserindo3, 
@@ -535,9 +533,9 @@ Pagamento telaPagamento = new Pagamento();
                             };
                              Tabela.addRow( inserindo);
                     } catch (FileNotFoundException ex) {
-                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Algo deu errado");
                     } catch (IOException ex) {
-                        Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Algo deu errado");
                     }
                     finally{
                         if( sc != null){
@@ -547,9 +545,9 @@ Pagamento telaPagamento = new Pagamento();
                 }
             });     
         } catch (IOException ex) {
-            Logger.getLogger(Estoque_Item.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Algo deu errado");
         }
-      
+     
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -574,9 +572,9 @@ Pagamento telaPagamento = new Pagamento();
 
                 Object[] inserir = new Object[]{
                    tblTabelaItens.getValueAt(0, 0),
-                    tblTabelaItens.getValueAt(0, 1),
+                   tblTabelaItens.getValueAt(0, 1),
                    tblTabelaItens.getValueAt(0, 2),
-                    tblTabelaItens.getValueAt(0, 3)
+                   tblTabelaItens.getValueAt(0, 3)
                 };
                 DefaultTableModel Tabela2 = ( DefaultTableModel) tbtTabelaProdutos.getModel();
                 Tabela2.addRow(inserir);
@@ -586,10 +584,8 @@ Pagamento telaPagamento = new Pagamento();
                 txtValorProduto.setText(soma.ValorUnitario());
                 txtSubtotal.setText(soma.Soma());
                 txtCodico.setText("");
-               
                 
                 txtNomeProduto.setText(tblTabelaItens.getValueAt(0, 1).toString());
-                //txtCodico.setText("");
 
             }
         }
