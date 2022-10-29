@@ -56,7 +56,7 @@ public class Estoque extends javax.swing.JFrame {
         btnIncluir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btnInserir = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -91,11 +91,6 @@ public class Estoque extends javax.swing.JFrame {
         tbtTabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbtTabelaMouseClicked(evt);
-            }
-        });
-        tbtTabela.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbtTabelaKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tbtTabela);
@@ -136,16 +131,21 @@ public class Estoque extends javax.swing.JFrame {
             }
         });
 
-        btnInserir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnInserir.setText("Excluir");
-        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInserirActionPerformed(evt);
+                btnExcluirActionPerformed(evt);
             }
         });
 
         btnAtualizar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/casa 1.png"))); // NOI18N
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,7 +189,7 @@ public class Estoque extends javax.swing.JFrame {
                                         .addComponent(txtCodico, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(63, 63, 63)))))
                         .addGap(0, 90, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -221,7 +221,7 @@ public class Estoque extends javax.swing.JFrame {
                         .addComponent(jLabel4)))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
@@ -269,25 +269,103 @@ Existente adcionando = new Existente();
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInserirActionPerformed
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+      try {
+  
+            // Get the file
+            File arquivo = new File("C:\\MercadoEstoque\\" + txtProduto.getText() + ".txt");
+  
+            // delete file
+            if (arquivo.delete())
+                 JOptionPane.showMessageDialog(null, "Arquivo deletado com sucesso");
+            else
+                 JOptionPane.showMessageDialog(null, "Algo deu errado");
+        }
+        catch (Exception e) {
+            System.err.println(e);
+        }
+      boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
+     
+     String[] linhas = new String[]{
+         txtQuantidade.getText(),
+         txtProduto.getText(),
+         txtPreco.getText(),
+         txtCodico.getText()
+     };
+     
+     DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
+          
+          
+          
+        try {
+            Files.walk(Paths.get("C:\\MercadoEstoque")).forEach((Path filePath) -> {
+                if (Files.isRegularFile(filePath)) {
+                    int i = 0;
+                    int coluna = 0;
+                    
+                    
+                    Object inserindo2 = new Object();
+                    Object inserindo3 = new Object();
+                    Object inserindo4 = new Object();
+                    Object inserindo5 = new Object();
+                    
+                    Scanner sc = null;
+                    try {
+                        sc = new Scanner(filePath);
+                        while(sc.hasNextLine()){
+                            
+                            if(i == 0){
+                                    inserindo2 = sc.nextLine();
+                             }
+                              
+                            if(i == 1){
+                                    inserindo3 = sc.nextLine();
+                             }
+                            if(i == 2){
+                                    inserindo4 = sc.nextLine();
+                             }
+                            if(i == 3){
+                                    inserindo5 = sc.nextLine();
+                             }
+                                i = 1 + i;
+                            }
+                            i = 0;
+                            coluna  = 1 + i;
+                            Object[] inserindo = new Object[]{
+                                inserindo2, 
+                                  inserindo3, 
+                                 inserindo4,
+                                 inserindo5   
+                            };
+                             Tabela.addRow( inserindo);
+                    } catch (FileNotFoundException ex) {
+                        JOptionPane.showMessageDialog(null, "Algo deu errado");
+                    } catch (IOException ex) {
+                         JOptionPane.showMessageDialog(null, "Algo deu errado");
+                    }
+                    finally{
+                        if( sc != null){
+                            sc.close();
+                        }
+                    }       
+                }
+            });     
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Algo deu errado");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void tbtTabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbtTabelaKeyReleased
+    private void tbtTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtTabelaMouseClicked
         int linha = tbtTabela.getSelectedRow(); // retorna a linha selecionada pelo usuario
         txtQuantidade.setText( tbtTabela.getValueAt(linha,0).toString()); // retorna o valor da celula linha X 0
         txtProduto.setText( tbtTabela.getValueAt(linha,1).toString()); // retorna o valor da celula linha X 1
         txtPreco.setText( tbtTabela.getValueAt(linha,2).toString()); // retorna o valor da celula linha X 2
         txtCodico.setText( tbtTabela.getValueAt(linha,3).toString()); // retorna o valor da celula linha X 2
 
-    }//GEN-LAST:event_tbtTabelaKeyReleased
-
-    private void tbtTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtTabelaMouseClicked
-
     }//GEN-LAST:event_tbtTabelaMouseClicked
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-           boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
+     boolean Subpasta  = new File("C:\\MercadoEstoque").mkdir();
      
      String[] linhas = new String[]{
          txtQuantidade.getText(),
@@ -305,8 +383,12 @@ Existente adcionando = new Existente();
      }  catch (IOException ex) {
            JOptionPane.showMessageDialog(null, "Deu errad000o");
         }
-     
-
+     DefaultTableModel Tabela = ( DefaultTableModel) tbtTabela.getModel();
+     Tabela.addRow(linhas);
+        txtQuantidade.setText("");
+         txtProduto.setText("");
+         txtPreco.setText("");
+         txtCodico.setText("");
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
@@ -388,6 +470,10 @@ Existente adcionando = new Existente();
 
        
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+       new Estoque().setVisible(true);
+    }//GEN-LAST:event_btnAtualizarActionPerformed
   
     
     /**
@@ -428,8 +514,8 @@ Existente adcionando = new Existente();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnIncluir;
-    private javax.swing.JButton btnInserir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
