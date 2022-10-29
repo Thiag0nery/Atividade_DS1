@@ -337,7 +337,7 @@ public class Pagamento extends javax.swing.JFrame {
              
                 double Troco = (Subtotal - recebido) * -1.0;
              
-                txtTroco.setText(String.valueOf(Troco));
+                txtTroco.setText(String.format("%.2f",Troco));
                 jButton1.setVisible(false);
                 if(Troco <= 0){
                      JOptionPane.showMessageDialog(null, "Valor recebido menor que o total! Atenção!");
