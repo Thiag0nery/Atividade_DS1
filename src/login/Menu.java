@@ -564,7 +564,6 @@ Pagamento telaPagamento = new Pagamento();
             String teste = txtCodico.getText();
             if(teste.length() >= 1){
                 TableRowSorter <TableModel> sorter = new TableRowSorter<TableModel> (tblTabelaItens.getModel());
-                Existente adcionando = new Existente();
                 DefaultTableModel Tabela = ( DefaultTableModel) tblTabelaItens.getModel();
                 tblTabelaItens.setRowSorter(sorter);
                 sorter.setRowFilter(RowFilter.regexFilter(teste));

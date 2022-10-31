@@ -408,16 +408,16 @@ public class Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-       new Estoque().setVisible(true);
+       LoginClass login = new LoginClass();
+        Estoque Tabela = new  Estoque();
+        login.setUsuario(txtRecebido.getText());
+        Tabela.Salvamento(login);
+        Tabela.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       LoginClass login = new LoginClass();
-        Menu Tabela = new  Menu();
-        login.setUsuario(txtRecebido.getText());
-        Tabela.Receber(login);
-        Tabela.setVisible(true);
-        dispose();
+       
     }//GEN-LAST:event_formWindowClosed
   
     
